@@ -1,0 +1,259 @@
+nav {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px; 
+  background-color: white; 
+  height: 20px; 
+}
+
+.icons {
+  display: flex;
+  gap: 10px; 
+  align-items: end; 
+}
+
+.container {
+  
+  width: 300px;
+  background-color: white; 
+  border-radius: 10px; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-family: sans-serif;
+ 
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  background-color: lightgray; 
+.plus svg{
+  margin-top: 15px;
+  color: rgb(26, 26, 255);
+  font-size: 30px;
+  margin-left: 12px;
+}
+}
+.plus{
+  display: flex;
+  justify-content: space-between;
+}
+.e{
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 4px;
+  color: skyblue
+}
+
+
+.cont{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid gray;
+padding-left: 5px;
+
+}
+
+main{
+  display: flex;
+}
+.ff :hover{
+  color: blue;
+  cursor: pointer;
+  
+}
+.ff{
+  font-size: 25px;
+}
+
+.cont .ty:hover{
+  color: orangered;
+  background-color: aliceblue;
+  cursor: pointer;
+
+
+}
+
+.plus div  :hover{
+  cursor: pointer;
+  color: orangered;
+}
+main{
+  margin: 0;
+  padding: 0;
+}
+
+.gg{
+  display: flex;
+  gap: 10px;
+
+  .er{
+    font-size: 25px;
+  }
+}
+ .er  :hover{
+  color: blue;
+  cursor: pointer;
+  
+}
+.upper{
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.upper div span{
+  color: blue;
+}
+
+form {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+  align-items: center;
+}
+
+input{
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+.adi{
+  margin-top: 100px;
+  font-size: 20px;
+  text-align: start;
+  display: flex;
+  cursor: pointer;
+  border-style: none;
+  
+}
+.rq{
+  display: flex;
+}
+.as{
+  color: green;
+}
+
+.as :hover{
+  cursor: pointer;
+}
+a{
+  text-decoration: none;
+  
+}
+
+.df{
+  border-style: none;
+}
+/* ................................... */
+button {
+  all: unset; 
+  cursor: pointer; 
+}
+
+button:hover {
+  opacity: 0.8; 
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.plus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.plus div {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.plus .e {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.cont {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 300px;
+  justify-content: center;
+}
+
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.contact-info {
+  flex-grow: 1;
+}
+
+.contact-info h3 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.contact-info h4 {
+  font-size: 16px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.delete, .edit {
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.delete:hover, .edit:hover {
+  transform: scale(1.2);
+}
+
+.delete {
+  color: #e74c3c;
+}
+
+.edit {
+  color: #007bff;
+}
+
+
+
