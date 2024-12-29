@@ -257,3 +257,10 @@ h1 {
 
 
 
+body{
+  background-color: black;
+}
+
+input{
+  color: orangered;
+}

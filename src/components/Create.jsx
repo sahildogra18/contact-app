@@ -6,8 +6,8 @@ import { useDispatch } from "react-redux";
 import { addtoContact } from "../features/contactsData";
 
 function Create() {
-  let [name, setName] = useState("Abhinav");
-  let [phone, setPhone] = useState("789555210");
+  let [name, setName] = useState("");
+  let [phone, setPhone] = useState("");
 
   let navigate = useNavigate();
 

@@ -5,6 +5,9 @@ import { MdAutoDelete } from "react-icons/md";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { AiFillAccountBook } from "react-icons/ai";
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
 
 function Read() {
   let [data, setData] = useState([]);
@@ -57,10 +60,11 @@ function Read() {
           </div>
         </Link>
         <div className="e">EDIT</div>
+
         <div>
           <input
             type="text"
-            placeholder="serch your contacts"
+            placeholder="search your contacts"
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -85,7 +89,7 @@ function Read() {
                       handleDelete(id);
                     }}
                   >
-                    <MdAutoDelete />
+                    <MdDeleteOutline />
                   </div>
                   <div
                     className="edit"
@@ -93,7 +97,7 @@ function Read() {
                       sendDataToLocalStoarage(detail.name, detail.phone, id);
                     }}
                   >
-                    <FaRegEdit />
+                    <CiEdit />
                   </div>
                 </div>
               </div>
