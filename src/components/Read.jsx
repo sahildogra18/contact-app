@@ -54,7 +54,7 @@ function Read() {
   useEffect(() => {
     callData();
     console.log(dispatch(apiCalling()));
-  }, [callData]);
+  }, []);
 
   function sendDataToLocalStoarage(name, phone, id) {
     localStorage.setItem("name", name);
