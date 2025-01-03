@@ -47,7 +47,7 @@ function Read() {
       .delete(
         `https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts/${id}.json`
       )
-      .then((res) => {
+      .then(() => {
         callData();
       });
   }
