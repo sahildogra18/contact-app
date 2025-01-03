@@ -40,6 +40,9 @@ function Read() {
   }
 
   function handleDelete(id) {
+    if (handleDelete) {
+      window.confirm("Are you sure to Delete this contact");
+    }
     axios
       .delete(
         `https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts/${id}.json`
