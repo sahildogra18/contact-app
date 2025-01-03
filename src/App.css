@@ -16,6 +16,7 @@ nav {
 .container {
   
   width: 300px;
+  height: 600px;
   background-color: white; 
   border-radius: 10px; 
   display: flex;
@@ -34,7 +35,7 @@ body {
   background-color: lightgray; 
 .plus svg{
   margin-top: 15px;
-  color: rgb(26, 26, 255);
+  color: green;
   font-size: 30px;
   margin-left: 12px;
 }
@@ -56,7 +57,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid gray;
 padding-left: 5px;
 
 }
@@ -81,9 +81,9 @@ main{
 
 }
 
-.plus div  :hover{
+.plus   :hover{
   cursor: pointer;
-  color: orangered;
+  color: rgb(23, 235, 23);
 }
 main{
   margin: 0;
@@ -103,16 +103,7 @@ main{
   cursor: pointer;
   
 }
-.upper{
-  display: flex;
-  margin-top: 10px;
-  justify-content: space-between;
-  padding-right: 5px;
-  padding-left: 5px;
-}
-.upper div span{
-  color: blue;
-}
+
 
 form {
   margin-top: 30px;
@@ -172,6 +163,7 @@ button:hover {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  height: 100%;
 }
 
 .plus {
@@ -207,12 +199,12 @@ h1 {
 
 .contact-card {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 20px;
-  border-radius: 8px;
   width: 300px;
-  background-color: #f9f9f9;
+  background-color: black;
+  color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 10px;
 }
@@ -224,11 +216,12 @@ h1 {
 .contact-info h3 {
   font-size: 20px;
   margin: 0;
+  color: white;
 }
 
 .contact-info h4 {
   font-size: 16px;
-  color: #666;
+  color: white;
   margin: 5px 0;
 }
 
@@ -258,9 +251,129 @@ h1 {
 
 
 body{
-  background-color: black;
+  background-color: bisque;
+}
+/* ........................Create */
+input{
+  color: wheat;
+  width: 100%;
+  padding: 10px;
+  background-color: #1f1e1c;
+  text-align: start;
+  font-size: 15px;
+  
 }
 
-input{
+.create{
+  height: 600px;
+  width: 309px;
+  background-color: black;
+  border: 2px solid orange;
+  color: white;
+  margin: 0;
+  padding: 0;
+   
+
+}
+
+input :hover{
+  border-color: blue;
+  border: 2px solid blue;
+  
+}
+.upper{
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-top: 20px;
+}
+.upper div span{
+  color: blue;
+  font-size: 20px;
+  font-weight: bold;
+}
+.user {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  font-size: 60px;
+}
+
+.ok{
+  color: blue;
+  font-size: 30px;
+}
+
+.ok :hover{
   color: orangered;
 }
+
+span :hover{
+  color: orangered;
+}
+.t{
+  font-size: 30px;
+}
+
+/* .......................... */
+
+.top-logos{
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+}
+.n{
+  color: green;
+}
+.serach-bar div{
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid black
+}
+
+.ramos{
+  background-color: black;
+  border: 2px solid orange;
+  color: white;
+}
+.nombre{
+  color: black;
+}
+.addi{
+  margin-left: 5px;
+  color: white;
+}
+
+.user-logo{
+  margin-right: 15px;
+  font-size: 40px;
+  
+}
+
+.gk{
+  font-size: 20px;
+}
+.cancel{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* .......................... */
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: fit-content;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 30px;
+  padding-bottom: 8px;
+  background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
+  animation: l2 2s linear infinite;
+}
+.loader:before {
+  content:"Loading..."
+}
+@keyframes l2 {to{background-size: 100% 3px}}

@@ -4,6 +4,9 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addtoContact } from "../features/contactsData";
+import { FaUserCircle } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import { IoCheckmarkDoneSharp } from "react-icons/io5";
 
 function Create() {
   let [name, setName] = useState("");
@@ -26,16 +29,23 @@ function Create() {
   }
 
   return (
-    <div className="container">
-      <NavBar />
+    <div className="create">
+      {/* <NavBar /> */}
       <div className="upper">
         <div>
           <Link to={"/"}>
-            <span>Cancel</span>
+            <span>
+              <MdCancel />
+            </span>
           </Link>
         </div>
-        <div>New Contact</div>
-        <button onClick={handleAddToContacts}>Done</button>
+        <div className="t">New Contact</div>
+        <button className="ok" onClick={handleAddToContacts}>
+          <IoCheckmarkDoneSharp />
+        </button>
+      </div>
+      <div className="user">
+        <FaUserCircle />
       </div>
       <div>
         <form onSubmit={handleAddToContacts}>
@@ -57,14 +67,14 @@ function Create() {
             />
           </div>
           <br />
-          <button type="submit" className="adi">
+          {/* <button type="submit" className="adi">
             <div className="as">
               <IoIosAddCircleOutline />
             </div>
             <div type="submit" className="rq">
               Add Phone
             </div>
-          </button>
+          </button> */}
         </form>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import NavBar from "./NavBar";
+// import NavBar from "./NavBar";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -40,18 +40,18 @@ function Edit() {
   }
 
   return (
-    <div className="container">
-      <NavBar />
+    <div className="create">
+      {/* <NavBar /> */}
       <div className="upper">
         <div>
           <Link to={"/"}>
-            <span>Cancel</span>
+            <span className="cancel">Cancel</span>
           </Link>
         </div>
-        <div>Edit Contact</div>
+        <div className="gk">Edit Contact</div>
         <div>
           <span className="df">
-            <button type="submit" onClick={handleUpdate}>
+            <button type="submit" className="cancel" onClick={handleUpdate}>
               Done
             </button>
           </span>

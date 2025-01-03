@@ -3,6 +3,7 @@ import "./App.css";
 import Read from "./components/Read";
 import Create from "./components/Create";
 import Edit from "./components/Edit";
+import Loader from "./components/Loader";
 
 function App() {
   return (

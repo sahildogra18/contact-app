@@ -15,7 +15,17 @@ export const addtoContact = createAsyncThunk(
   }
 );
 
-export let getContactData = createAsyncThunk("get Contact Data", () => {});
+//get Data
+
+export const apiCalling = createAsyncThunk(
+  "contacts/fetchContacts",
+  async () => {
+    const response = await axios.get(
+      `https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts.json`
+    );
+    return response.data;
+  }
+);
 
 const contactDataSlice = createSlice({
   name: "contact",
@@ -31,6 +41,16 @@ const contactDataSlice = createSlice({
         state.contacts.push(action.payload);
       })
       .addCase(addtoContact.rejected, (state) => {
+        state.status = "failed";
+      })
+      .addCase(apiCalling.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.contacts.push(action.payload);
+      })
+      .addCase(apiCalling.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(apiCalling.rejected, (state) => {
         state.status = "failed";
       });
   },
