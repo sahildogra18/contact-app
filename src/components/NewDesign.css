@@ -1,0 +1,88 @@
+.n-root {
+    width: 500px;
+    margin: auto;
+    background-color: black;
+    color: white;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    padding: 20px;
+    color: #696969;
+    font-family: sans-serif;
+
+    .search-cntr {
+        background-color: #1f1e1c;
+        border-radius: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        .icon {
+            
+            margin-left: 2%;
+        }
+
+        .search {
+            padding: 5px;
+            background-color: #1f1e1c;
+            width: 90%;
+            border: 0;
+            border-radius: 30px;
+        }
+    }
+    .all-calls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        .icon {
+            transform: rotate(90deg) scale(0.7);
+            
+        }
+    }
+
+    .contant-item {
+        display: flex;
+        align-items: center;
+        .avatar{
+            border-radius: 50px;
+            width: 35px;
+            height: 35px;
+            background-color: #888;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .details {
+            flex:1;
+            padding-left: 12px;
+
+            .name {
+                color: white;
+            }
+            .number {
+                margin-top:4px;
+                font-size: 12px;
+                color: #696969;
+            }
+        }
+
+        .icon.action{
+            background-color: #333;
+            border-radius: 40px;
+            padding: 4px;
+            font-size: 12px;
+        }
+
+
+    }
+
+    .sm {
+        font-size: 12px;
+    }
+
+    .ml-1 {
+        margin-left: 4px ;
+    }
+
+}

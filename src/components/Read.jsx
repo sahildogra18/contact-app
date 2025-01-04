@@ -6,7 +6,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { apiCalling } from "../features/contactsData";
+// import { apiCalling } from "../features/contactsData";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdContact } from "react-icons/io";
 import { IoIosSettings } from "react-icons/io";
@@ -53,7 +53,7 @@ function Read() {
   }
   useEffect(() => {
     callData();
-    console.log(dispatch(apiCalling()));
+    // console.log(dispatch(apiCalling()));
   }, []);
 
   function sendDataToLocalStoarage(name, phone, id) {

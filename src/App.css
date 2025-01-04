@@ -33,6 +33,7 @@ body {
   justify-content: center;
   align-items: center; 
   background-color: lightgray; 
+  margin: 0;
 .plus svg{
   margin-top: 15px;
   color: green;
@@ -113,14 +114,14 @@ form {
   
   align-items: center;
 }
-
+/* 
 input{
   padding: 10px;
   border: 1px solid black;
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
-}
+} */
 .adi{
   margin-top: 100px;
   font-size: 20px;
@@ -254,7 +255,7 @@ body{
   background-color: bisque;
 }
 /* ........................Create */
-input{
+/* input{
   color: wheat;
   width: 100%;
   padding: 10px;
@@ -262,7 +263,7 @@ input{
   text-align: start;
   font-size: 15px;
   
-}
+} */
 
 .create{
   height: 600px;
@@ -275,12 +276,12 @@ input{
    
 
 }
-
+/* 
 input :hover{
   border-color: blue;
   border: 2px solid blue;
   
-}
+} */
 .upper{
   display: flex;
   margin-top: 10px;
