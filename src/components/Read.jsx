@@ -6,7 +6,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { apiCalling } from "../features/contactsData";
+// import { apiCalling } from "../features/contactsData";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdContact } from "react-icons/io";
 import { IoIosSettings } from "react-icons/io";
@@ -53,7 +53,7 @@ function Read() {
   }
   useEffect(() => {
     callData();
-    console.log(dispatch(apiCalling()));
+    // console.log(dispatch(apiCalling()));
   }, []);
 
   function sendDataToLocalStoarage(name, phone, id) {
@@ -65,18 +65,9 @@ function Read() {
 
   return (
     <div className="container ramos">
-      <div className="top-logos">
-        <div className="n">
-          <FaPhoneAlt />
-        </div>
-        <div>
-          <IoMdContact />
-        </div>
-
-        <div>
-          <IoIosSettings />
-        </div>
-      </div>
+      <h1 className="text-red-600 font-bold flex justify-center text-xl">
+        Crud Operations
+      </h1>
       {/* <NavBar /> */}
       <div className="plus">
         <Link to={"/create"}>
