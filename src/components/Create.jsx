@@ -1,82 +1,80 @@
 import React, { useState } from "react";
-import NavBar from "./NavBar";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addtoContact } from "../features/contactsData";
 import { FaUserCircle } from "react-icons/fa";
-import { MdCancel } from "react-icons/md";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
+import { MdCancel } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Create() {
-  let [name, setName] = useState("");
-  let [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
-  let navigate = useNavigate();
-
-  let dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleAddToContacts(e) {
     e.preventDefault();
-    if (name && phone && phone.length <= 10) {
-      dispatch(addtoContact({ name, phone }));
-      setName("");
-      setPhone("");
-      navigate("/");
-    } else {
+
+    if (!name || !phone) {
       alert("Please fill out all fields!");
+      return;
     }
+
+    if (phone.length > 10) {
+      alert("Phone number should be 10 digits or less!");
+      return;
+    }
+
+    axios
+      .post(`https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts.json`, {
+        name,
+        phone,
+      })
+      .then(() => {
+        setName("");
+        setPhone("");
+        navigate("/read"); // 👈 change route as needed
+      })
+      .catch((error) => {
+        console.error("Error adding contact:", error);
+        alert("Something went wrong while adding contact.");
+      });
   }
 
   return (
-    <div className="create">
-      {/* <NavBar /> */}
-      <div className="upper">
-        <div>
-          <Link to={"/"}>
-            <span>
-              <MdCancel />
-            </span>
-          </Link>
-        </div>
-        <div className="t">New Contact</div>
-        <button className="ok" onClick={handleAddToContacts}>
-          <IoCheckmarkDoneSharp />
+    <div className="create bg-gray-900 min-h-screen text-white p-4">
+      {/* Top bar */}
+      <div className="flex items-center justify-between mb-4">
+        <Link to="/read">
+          <MdCancel className="text-2xl hover:text-red-400" />
+        </Link>
+        <h2 className="text-xl font-bold">New Contact</h2>
+        <button onClick={handleAddToContacts}>
+          <IoCheckmarkDoneSharp className="text-2xl text-green-400 hover:text-green-600" />
         </button>
       </div>
-      <div className="user">
+
+      {/* User icon */}
+      <div className="flex justify-center text-7xl mb-6">
         <FaUserCircle />
       </div>
-      <div>
-        <form onSubmit={handleAddToContacts}>
-          <div>
-            <input
-              type="text"
-              placeholder="Enter their Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <br />
-          <div>
-            <input
-              type="number"
-              placeholder="Enter their Phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-          <br />
-          {/* <button type="submit" className="adi">
-            <div className="as">
-              <IoIosAddCircleOutline />
-            </div>
-            <div type="submit" className="rq">
-              Add Phone
-            </div>
-          </button> */}
-        </form>
-      </div>
+
+      {/* Form */}
+      <form onSubmit={handleAddToContacts} className="space-y-4">
+        <input
+          type="text"
+          placeholder="Enter Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+        />
+        <input
+          type="number"
+          placeholder="Enter Phone Number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+        />
+      </form>
     </div>
   );
 }
