@@ -61,10 +61,7 @@ function Read() {
     <div className="container mx-auto p-4 text-white bg-gray-900 min-h-screen">
       <h1 className="text-2xl font-bold text-center mb-6 text-red-500">CRUD Operations</h1>
 
-      {/* Debug: Show raw data from Firebase */}
-      <pre className="bg-gray-800 p-2 rounded text-sm text-green-300 overflow-x-auto mb-4">
-        {JSON.stringify(data, null, 2)}
-      </pre>
+  
 
       {/* Add Contact */}
       <div className="mb-4 flex justify-end">
