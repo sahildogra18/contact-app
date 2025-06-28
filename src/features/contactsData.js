@@ -1,23 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// 🔄 Add Contact to Firebase + Redux
 export const addtoContact = createAsyncThunk(
   "contacts/addContact",
   async ({ name, phone }) => {
     const response = await axios.post(
       `https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts.json`,
-      {
-        name: name,
-        phone: phone,
-      }
+      { name, phone }
     );
-    return response;
+    return { id: response.data.name, name, phone }; // ✅ FIXED
   }
 );
 
 const contactDataSlice = createSlice({
   name: "contact",
-  initialState: { contacts: [], status: null },
+  initialState: {
+    contacts: [],
+    status: null,
+  },
 
   extraReducers: (builder) => {
     builder
@@ -26,7 +27,7 @@ const contactDataSlice = createSlice({
       })
       .addCase(addtoContact.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.contacts.push(action.payload);
+        state.contacts.push(action.payload); // ✅ id,name,phone
       })
       .addCase(addtoContact.rejected, (state) => {
         state.status = "failed";
