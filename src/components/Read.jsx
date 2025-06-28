@@ -1,131 +1,123 @@
-import { FaPlus } from "react-icons/fa";
-import { FaRegEdit } from "react-icons/fa";
-// import NavBar from "./NavBar";
+import { FaRegEdit, FaPhoneAlt, FaUserCircle } from "react-icons/fa";
 import { MdAutoDelete } from "react-icons/md";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { IoMdAddCircle } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-// import { apiCalling } from "../features/contactsData";
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoMdContact } from "react-icons/io";
-import { IoIosSettings } from "react-icons/io";
-import { IoMdAddCircle } from "react-icons/io";
-
-import { FaUserCircle } from "react-icons/fa";
 import Loader from "./Loader";
 
 function Read() {
-  let userLogo = <FaUserCircle />;
-  console.log(userLogo);
-  let [data, setData] = useState([]);
-  let [search, setSearch] = useState("");
+  const [data, setData] = useState({});
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
-  const filteredData = Object.entries(data).filter(([id, detail]) =>
-    detail.name.toLowerCase().includes(search.toLowerCase())
-  );
-  let dispatch = useDispatch();
-
-  let navigate = useNavigate();
-
+  // Fetch contacts from Firebase
   function callData() {
     axios
-      .get(
-        `https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts.json`
-      )
+      .get(`https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts.json`)
       .then((res) => {
-        setData(res.data);
+        setData(res.data || {}); // Ensure it’s not null
         console.log(res.data);
       });
   }
 
+  // Delete a contact with confirmation
   function handleDelete(id) {
-    if (handleDelete) {
-      window.confirm("Are you sure to Delete this contact");
+    const confirmDelete = window.confirm("Are you sure you want to delete this contact?");
+    if (confirmDelete) {
+      axios
+        .delete(`https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts/${id}.json`)
+        .then(() => {
+          callData(); // Refresh list after deletion
+        });
     }
-    axios
-      .delete(
-        `https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts/${id}.json`
-      )
-      .then(() => {
-        callData();
-      });
   }
-  useEffect(() => {
-    callData();
-    // console.log(dispatch(apiCalling()));
-  }, []);
 
-  function sendDataToLocalStoarage(name, phone, id) {
+  // Send data to localStorage and navigate to edit page
+  function sendDataToLocalStorage(name, phone, id) {
     localStorage.setItem("name", name);
     localStorage.setItem("phone", phone);
     localStorage.setItem("id", id);
     navigate("/edit");
   }
 
+  useEffect(() => {
+    callData();
+  }, []);
+
+  // Filter contacts by search
+  const filteredData = Object.entries(data)
+    .filter(([id, detail]) =>
+      detail.name.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) => a[1].name.localeCompare(b[1].name)); // Sort alphabetically
+
   return (
-    <div className="container ramos">
-      <h1 className="text-red-600 font-bold flex justify-center text-xl">
-        Crud Operations
-      </h1>
-      {/* <NavBar /> */}
-      <div className="plus">
-        <Link to={"/create"}>
-          <div>
-            <IoMdAddCircle />
-            <span className="addi">Add Contact</span>
-          </div>
+    <div className="container mx-auto p-4 text-white bg-gray-900 min-h-screen">
+      <h1 className="text-2xl font-bold text-center mb-6 text-red-500">CRUD Operations</h1>
+
+      {/* Add Contact Button */}
+      <div className="mb-4 flex justify-end">
+        <Link to="/create" className="flex items-center gap-2 text-blue-400 hover:text-blue-600 transition">
+          <IoMdAddCircle size={24} />
+          <span>Add Contact</span>
         </Link>
       </div>
 
-      <div className="serach-bar">
-        <div>
-          <input
-            className="ki"
-            type="text"
-            placeholder="serch your contacts"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-          />
-        </div>
+      {/* Search Input */}
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Search your contacts"
+          className="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white focus:outline-none"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
-      <h1>my Contacts</h1>
+
+      {/* Contact List */}
+      <h2 className="text-xl mb-4">My Contacts</h2>
       <main>
-        <div className="cont">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredData.length > 0 ? (
-            filteredData.map(([id, detail]) => {
-              return (
-                <div key={id} className="contact-card">
-                  <div className="user-logo">{userLogo}</div>
-                  <div key={id} className="contact-info">
-                    <h3 className="nombre">{detail.name}</h3>
-                    <h4>{detail.phone}</h4>
-                  </div>
-                  <div className="actions">
-                    <div
-                      className="delete"
-                      onClick={() => {
-                        handleDelete(id);
-                      }}
-                    >
-                      <MdAutoDelete />
-                    </div>
-                    <div
-                      className="edit"
-                      onClick={() => {
-                        sendDataToLocalStoarage(detail.name, detail.phone, id);
-                      }}
-                    >
-                      <FaRegEdit />
-                    </div>
+            filteredData.map(([id, detail]) => (
+              <div
+                key={id}
+                className="bg-gray-800 p-4 rounded shadow hover:shadow-lg transition"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <FaUserCircle size={30} />
+                  <div>
+                    <h3 className="text-lg font-semibold">{detail.name}</h3>
+                    <p className="text-sm text-gray-300">{detail.phone}</p>
                   </div>
                 </div>
-              );
-            })
+                <div className="flex justify-end gap-4 mt-4">
+                  <button
+                    onClick={() => handleDelete(id)}
+                    className="text-red-500 hover:text-red-700"
+                    title="Delete"
+                  >
+                    <MdAutoDelete size={22} />
+                  </button>
+                  <button
+                    onClick={() => sendDataToLocalStorage(detail.name, detail.phone, id)}
+                    className="text-yellow-400 hover:text-yellow-600"
+                    title="Edit"
+                  >
+                    <FaRegEdit size={20} />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : search.length > 0 ? (
+            <p className="text-gray-400 text-center col-span-full">
+              No contact found for "{search}"
+            </p>
           ) : (
-            <Loader />
+            <div className="col-span-full">
+              <Loader />
+            </div>
           )}
         </div>
       </main>
