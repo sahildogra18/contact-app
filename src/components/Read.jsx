@@ -1,4 +1,4 @@
-import { FaRegEdit, FaPhoneAlt, FaUserCircle } from "react-icons/fa";
+import { FaRegEdit, FaUserCircle } from "react-icons/fa";
 import { MdAutoDelete } from "react-icons/md";
 import { IoMdAddCircle } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,33 +7,34 @@ import { useEffect, useState } from "react";
 import Loader from "./Loader";
 
 function Read() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({}); // ✅ fix: start with {} not []
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  // Fetch contacts from Firebase
+  // ✅ fetch contacts from Firebase
   function callData() {
     axios
       .get(`https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts.json`)
       .then((res) => {
-        setData(res.data || {}); // Ensure it’s not null
-        console.log(res.data);
+        setData(res.data || {}); // ✅ fix: handle null response
+      })
+      .catch((err) => {
+        console.error("Failed to fetch contacts:", err);
+        setData({}); // fallback to empty object
       });
   }
 
-  // Delete a contact with confirmation
+  // ✅ delete contact with confirmation
   function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure you want to delete this contact?");
     if (confirmDelete) {
       axios
         .delete(`https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts/${id}.json`)
-        .then(() => {
-          callData(); // Refresh list after deletion
-        });
+        .then(() => callData());
     }
   }
 
-  // Send data to localStorage and navigate to edit page
+  // ✅ send selected contact to localStorage before editing
   function sendDataToLocalStorage(name, phone, id) {
     localStorage.setItem("name", name);
     localStorage.setItem("phone", phone);
@@ -45,18 +46,20 @@ function Read() {
     callData();
   }, []);
 
-  // Filter contacts by search
-  const filteredData = Object.entries(data)
-    .filter(([id, detail]) =>
-      detail.name.toLowerCase().includes(search.toLowerCase())
-    )
-    .sort((a, b) => a[1].name.localeCompare(b[1].name)); // Sort alphabetically
+  // ✅ safely handle and filter contacts
+  const filteredData = data
+    ? Object.entries(data)
+        .filter(([id, detail]) =>
+          detail.name.toLowerCase().includes(search.toLowerCase())
+        )
+        .sort((a, b) => a[1].name.localeCompare(b[1].name))
+    : [];
 
   return (
     <div className="container mx-auto p-4 text-white bg-gray-900 min-h-screen">
       <h1 className="text-2xl font-bold text-center mb-6 text-red-500">CRUD Operations</h1>
 
-      {/* Add Contact Button */}
+      {/* ✅ Add Contact button */}
       <div className="mb-4 flex justify-end">
         <Link to="/create" className="flex items-center gap-2 text-blue-400 hover:text-blue-600 transition">
           <IoMdAddCircle size={24} />
@@ -64,7 +67,7 @@ function Read() {
         </Link>
       </div>
 
-      {/* Search Input */}
+      {/* ✅ Search bar */}
       <div className="mb-6">
         <input
           type="text"
@@ -75,7 +78,7 @@ function Read() {
         />
       </div>
 
-      {/* Contact List */}
+      {/* ✅ Contact List */}
       <h2 className="text-xl mb-4">My Contacts</h2>
       <main>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
