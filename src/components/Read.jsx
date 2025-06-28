@@ -7,24 +7,25 @@ import { useEffect, useState } from "react";
 import Loader from "./Loader";
 
 function Read() {
-  const [data, setData] = useState({}); // ✅ fix: start with {} not []
+  const [data, setData] = useState(null); // can be null initially
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  // ✅ fetch contacts from Firebase
+  // ✅ Fetch data from Firebase
   function callData() {
     axios
       .get(`https://contact-app-abb9f-default-rtdb.firebaseio.com/contacts.json`)
       .then((res) => {
-        setData(res.data || {}); // ✅ fix: handle null response
+        console.log("Firebase data =>", res.data);
+        setData(res.data || {}); // fallback to empty object if null
       })
       .catch((err) => {
-        console.error("Failed to fetch contacts:", err);
-        setData({}); // fallback to empty object
+        console.error("Error fetching data:", err);
+        setData({}); // to avoid crash
       });
   }
 
-  // ✅ delete contact with confirmation
+  // ✅ Delete contact
   function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure you want to delete this contact?");
     if (confirmDelete) {
@@ -34,7 +35,7 @@ function Read() {
     }
   }
 
-  // ✅ send selected contact to localStorage before editing
+  // ✅ Send contact to localStorage for edit
   function sendDataToLocalStorage(name, phone, id) {
     localStorage.setItem("name", name);
     localStorage.setItem("phone", phone);
@@ -46,20 +47,26 @@ function Read() {
     callData();
   }, []);
 
-  // ✅ safely handle and filter contacts
-  const filteredData = data
-    ? Object.entries(data)
-        .filter(([id, detail]) =>
-          detail.name.toLowerCase().includes(search.toLowerCase())
-        )
-        .sort((a, b) => a[1].name.localeCompare(b[1].name))
-    : [];
+  // ✅ Filter and sort data
+  const filteredData =
+    data && typeof data === "object"
+      ? Object.entries(data)
+          .filter(([id, detail]) =>
+            detail.name.toLowerCase().includes(search.toLowerCase())
+          )
+          .sort((a, b) => a[1].name.localeCompare(b[1].name))
+      : [];
 
   return (
     <div className="container mx-auto p-4 text-white bg-gray-900 min-h-screen">
       <h1 className="text-2xl font-bold text-center mb-6 text-red-500">CRUD Operations</h1>
 
-      {/* ✅ Add Contact button */}
+      {/* Debug: Show raw data from Firebase */}
+      <pre className="bg-gray-800 p-2 rounded text-sm text-green-300 overflow-x-auto mb-4">
+        {JSON.stringify(data, null, 2)}
+      </pre>
+
+      {/* Add Contact */}
       <div className="mb-4 flex justify-end">
         <Link to="/create" className="flex items-center gap-2 text-blue-400 hover:text-blue-600 transition">
           <IoMdAddCircle size={24} />
@@ -67,7 +74,7 @@ function Read() {
         </Link>
       </div>
 
-      {/* ✅ Search bar */}
+      {/* Search Bar */}
       <div className="mb-6">
         <input
           type="text"
@@ -78,11 +85,13 @@ function Read() {
         />
       </div>
 
-      {/* ✅ Contact List */}
+      {/* Contact List */}
       <h2 className="text-xl mb-4">My Contacts</h2>
       <main>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredData.length > 0 ? (
+          {data === null ? (
+            <Loader />
+          ) : filteredData.length > 0 ? (
             filteredData.map(([id, detail]) => (
               <div
                 key={id}
@@ -113,14 +122,10 @@ function Read() {
                 </div>
               </div>
             ))
-          ) : search.length > 0 ? (
+          ) : (
             <p className="text-gray-400 text-center col-span-full">
               No contact found for "{search}"
             </p>
-          ) : (
-            <div className="col-span-full">
-              <Loader />
-            </div>
           )}
         </div>
       </main>
